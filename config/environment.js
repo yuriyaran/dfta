@@ -18,9 +18,12 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     },
+
+    GITHUB_PAT_CLASSIC: '',
   };
 
   if (environment === 'development') {
+    ENV.GITHUB_PAT_CLASSIC = process.env.GITHUB_PAT_CLASSIC;
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;

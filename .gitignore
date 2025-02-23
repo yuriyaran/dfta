@@ -6,7 +6,7 @@
 /node_modules/
 
 # misc
-/.env*
+/.env
 /.pnp*
 /.eslintcache
 /coverage/

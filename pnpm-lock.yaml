@@ -113,6 +113,9 @@ importers:
       ember-cli-dependency-checker:
         specifier: ^3.3.3
         version: 3.3.3(ember-cli@6.2.2(handlebars@4.7.8)(underscore@1.13.7))
+      ember-cli-dotenv:
+        specifier: ^4.0.0
+        version: 4.0.0(ember-source@6.2.0(@glimmer/component@1.1.2(@babel/core@7.26.9))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.98.0))
       ember-cli-htmlbars:
         specifier: ^6.3.0
         version: 6.3.0
@@ -2698,6 +2701,10 @@ packages:
     resolution: {integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==}
     engines: {node: '>=8'}
 
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+    engines: {node: '>=12'}
+
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -2749,6 +2756,12 @@ packages:
     engines: {node: '>= 6'}
     peerDependencies:
       ember-cli: ^3.2.0 || >=4.0.0
+
+  ember-cli-dotenv@4.0.0:
+    resolution: {integrity: sha512-9Zm+Qark7yPUAuXFlMU7vUGZyQDwKaFTQCAKoGhjRQBmf33zWFjhwMXU2C+yejplu8mGfiivHn9hD0a1I+pDQA==}
+    engines: {node: 18.* || >= 20}
+    peerDependencies:
+      ember-source: '>= 4.0.0'
 
   ember-cli-get-component-path-option@1.0.0:
     resolution: {integrity: sha512-k47TDwcJ2zPideBCZE8sCiShSxQSpebY2BHcX2DdipMmBox5gsfyVrbKJWIHeSTTKyEUgmBIvQkqTOozEziCZA==}
@@ -9268,6 +9281,8 @@ snapshots:
     dependencies:
       is-obj: 2.0.0
 
+  dotenv@16.4.7: {}
+
   dunder-proto@1.0.1:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -9422,6 +9437,16 @@ snapshots:
       is-git-url: 1.0.0
       resolve: 1.22.10
       semver: 5.7.2
+
+  ember-cli-dotenv@4.0.0(ember-source@6.2.0(@glimmer/component@1.1.2(@babel/core@7.26.9))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.98.0)):
+    dependencies:
+      '@babel/core': 7.26.9(supports-color@8.1.1)
+      dotenv: 16.4.7
+      ember-cli-babel: 8.2.0(@babel/core@7.26.9)
+      ember-source: 6.2.0(@glimmer/component@1.1.2(@babel/core@7.26.9))(@glint/template@1.5.2)(rsvp@4.8.5)(webpack@5.98.0)
+      minimist: 1.2.8
+    transitivePeerDependencies:
+      - supports-color
 
   ember-cli-get-component-path-option@1.0.0: {}
 

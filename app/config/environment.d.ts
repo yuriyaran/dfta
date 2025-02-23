@@ -9,6 +9,7 @@ declare const config: {
   locationType: 'history' | 'hash' | 'none';
   rootURL: string;
   APP: Record<string, unknown>;
+  GITHUB_PAT_CLASSIC: string;
 };
 
 export default config;

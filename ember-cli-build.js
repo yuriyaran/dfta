@@ -1,12 +1,17 @@
 'use strict';
+require('dotenv').config();
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
     'ember-cli-babel': { enableTypeScriptTransform: true },
-
-    // Add options here
+    '@embroider/macros': {
+      // this is how you configure your own package
+      setOwnConfig: {
+        GITHUB_PAT_CLASSIC: process.env.GITHUB_PAT_CLASSIC,
+      },
+    },
   });
 
   const { Webpack } = require('@embroider/webpack');
