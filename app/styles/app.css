@@ -1,1 +1,174 @@
-/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+/* Ember supports plain CSS out of the box.
+ * More info: https://cli.emberjs.com/release/advanced-use/stylesheets/
+ */
+body {
+  font-family: sans-serif;
+  padding: 1rem;
+}
+p {
+  margin: 0;
+}
+
+/* `github-form` component */
+.github-form {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  gap: 1rem;
+  width: 80%;
+  max-width: 880px;
+  margin: 1rem auto 2rem;
+}
+
+.github-form input,
+.github-form button {
+  padding: 0.25rem 0.5rem;
+  box-sizing: border-box;
+}
+
+.github-form input:read-only {
+  background-color: lightsteelblue;
+}
+
+.github-form .form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.github-form .form-row:nth-child(3) {
+  align-self: end;
+}
+
+.github-form .form-row input,
+.github-form .form-row button {
+  width: 100%;
+}
+
+.github-form .form-row label {
+  margin-bottom: 0.25rem;
+}
+/* end of `github-form` component */
+
+/* `repos` component */
+.list-placeholder {
+  text-align: center;
+}
+
+.org-name {
+  text-align: center;
+  color: darkmagenta;
+}
+
+.repositories-table {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.repositories-table th,
+.repositories-table td {
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+}
+
+.repositories-table th:nth-child(1),
+.repositories-table td:nth-child(1) {
+  width: 20%;
+}
+
+.repositories-table th:nth-child(2),
+.repositories-table td:nth-child(2) {
+  width: 50%;
+}
+
+.repositories-table th:nth-child(3),
+.repositories-table td:nth-child(3) {
+  width: 15%;
+}
+
+.repositories-table th:nth-child(4),
+.repositories-table td:nth-child(4) {
+  width: 15%;
+}
+
+.repositories-table .repo-row {
+  border-top: 1px dotted darkgray;
+}
+
+.repositories-table .repo-row:hover {
+  cursor: pointer;
+  background-color: #e0e0e0;
+}
+
+.repositories-table .branch-row {
+  background-color: whitesmoke;
+}
+
+.repositories-table .branch-row.hidden td {
+  animation: removePadding 0s 0.4s forwards;
+}
+
+@keyframes removePadding {
+  to {
+    padding: 0;
+  }
+}
+
+.repositories-table .branch-row .branch-paragraph {
+  max-height: 5rem;
+  opacity: 1;
+}
+
+.repositories-table .branch-row.hidden .branch-paragraph {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.5s ease-in-out,
+    opacity 0.5s ease-in-out;
+}
+/* end of `repos` component */
+
+/* `filter` component */
+.filter-row {
+  margin: 0.33rem 0;
+}
+
+.filter-pill {
+  display: inline-block;
+  margin: 0.2rem 0.2rem 0 0;
+  padding: 0.1rem 0.5rem;
+  background-color: lightskyblue;
+  border: 2px solid darkcyan;
+  border-radius: 2rem;
+  color: darkslategray;
+  font-weight: 600;
+}
+
+.filter-pill:hover {
+  cursor: pointer;
+}
+
+.filter-pill.selected {
+  background-color: darkcyan;
+  color: white;
+}
+/* end of `filter` component */
+
+/* Mobile support */
+@media (max-width: 767px) {
+  body {
+    margin: 10px;
+  }
+
+  .github-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 98%;
+    margin-top: 0;
+  }
+
+  .github-form .form-row label {
+    margin-bottom: 0.5rem;
+  }
+}
+/* end of Mobile support */

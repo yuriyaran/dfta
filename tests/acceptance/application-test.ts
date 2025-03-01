@@ -99,7 +99,10 @@ module('Acceptance | application', function (hooks) {
 
       assert
         .dom(`[data-test-row-branches="${repositories[0]!.name}"]`)
-        .hasText('main, dev, feature', 'branches endpoint successful response');
+        .hasText(
+          'Branches: main, dev, feature',
+          'branches endpoint successful response',
+        );
     });
 
     test('repositories: failed response', async function (assert) {
@@ -120,6 +123,7 @@ module('Acceptance | application', function (hooks) {
       await fillIn('[data-test-input="gh-org-name"]', 'failed-one');
       await click('[data-test-submit-button]');
 
+      await waitFor('[data-test-notification-message="error"]');
       assert
         .dom('[data-test-notification-message="error"]')
         .hasText('Not Found: failed-one');

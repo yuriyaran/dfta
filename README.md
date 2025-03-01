@@ -39,8 +39,7 @@ Based on my experience, investing efforts into learning and implementing the lat
    2. `ember-concurrency` - for handling REST API calls, loading state, and error management
    3. `ember-test-selectors` - for testing convenience on querying elements
    4. `ember-cli-notifications` - for notifying errored API calls
-   5. `ember-cli-sass` - for styling
-   6. `ember-truth-helpers` - `eq` helper used in `components/repos/filter.gts` template
+   5. `ember-truth-helpers` - `eq` helper used in `components/repos/filter.gts` template
 
    I also considered other addons, but I got away with browsers widely supported **The HTML DOM API**
 
@@ -50,7 +49,7 @@ Based on my experience, investing efforts into learning and implementing the lat
 
    2. *Styling:*
 
-      [Tailwind CSS](https://tailwindcss.com/docs/installation/framework-guides/emberjs) / [ember-bootstrap](https://www.ember-bootstrap.com/) < **SASS**
+      [Tailwind CSS](https://tailwindcss.com/docs/installation/framework-guides/emberjs) / [ember-bootstrap](https://www.ember-bootstrap.com/) < **CSS**
 
    3. *Handling data:* `ember-data`
 
@@ -78,8 +77,8 @@ Based on my experience, investing efforts into learning and implementing the lat
    - `All` is a default value for both `language` and `privacy` filters. Thus all repositories are listed initially
 
 7. **Styling**
-   - I decided to use minimal design, no fancy looks, no external libraries, just plain functionality, and minimum SASS
-   - each repository row is clickable and behaves like a drawer for the row below with a branches list
+   - I decided to use minimal design, no fancy looks, no external libraries, just plain functionality, and minimum CSS
+   - each repository row is clickable and behaves like a drawer for the row below with a branches list (basic animation included)
 
 8. **App functionality decisions**
    1. No excess, duplicate, or unnecessary API calls:

@@ -24,46 +24,52 @@ export default class ReposFilter extends Component<ReposFilterSignature> {
     <form ...attributes>
       <fieldset>
         <legend>Filter by</legend>
-        <p>
-          <span>Language:</span>
+        <p class="filter-row">
+          <strong>Language:</strong>
           {{#each @langs as |lang|}}
-            <label
-              for="radio-lang-{{lang}}"
-              data-test-label="radio-lang-{{lang}}"
-              {{on "click" (fn @onFilter (hash language=lang))}}
-            >
-              {{lang}}
-            </label>
-            <input
-              id="radio-lang-{{lang}}"
-              type="radio"
-              checked={{eq lang @selectedLanguage}}
-              name="lang"
-              value={{lang}}
-              data-test-input="radio-lang-{{lang}}"
-              hidden
-            />
+            {{#let (eq lang @selectedLanguage) as |selected|}}
+              <label
+                class="filter-pill {{if selected 'selected'}}"
+                for="radio-lang-{{lang}}"
+                data-test-label="radio-lang-{{lang}}"
+                {{on "click" (fn @onFilter (hash language=lang))}}
+              >
+                {{lang}}
+              </label>
+              <input
+                id="radio-lang-{{lang}}"
+                type="radio"
+                checked={{selected}}
+                name="lang"
+                value={{lang}}
+                data-test-input="radio-lang-{{lang}}"
+                hidden
+              />
+            {{/let}}
           {{/each}}
         </p>
-        <p>
-          <span>Privacy:</span>
+        <p class="filter-row">
+          <strong>Privacy:</strong>
           {{#each @privacy as |privacy|}}
-            <label
-              for="radio-priv-{{privacy}}"
-              data-test-label="radio-priv-{{privacy}}"
-              {{on "click" (fn @onFilter (hash privacy=privacy))}}
-            >
-              {{privacy}}
-            </label>
-            <input
-              id="radio-priv-{{privacy}}"
-              type="radio"
-              checked={{eq privacy @selectedPrivacy}}
-              name="privacy"
-              value={{privacy}}
-              data-test-input="radio-priv-{{privacy}}"
-              hidden
-            />
+            {{#let (eq privacy @selectedPrivacy) as |selected|}}
+              <label
+                class="filter-pill {{if selected 'selected'}}"
+                for="radio-priv-{{privacy}}"
+                data-test-label="radio-priv-{{privacy}}"
+                {{on "click" (fn @onFilter (hash privacy=privacy))}}
+              >
+                {{privacy}}
+              </label>
+              <input
+                id="radio-priv-{{privacy}}"
+                type="radio"
+                checked={{selected}}
+                name="privacy"
+                value={{privacy}}
+                data-test-input="radio-priv-{{privacy}}"
+                hidden
+              />
+            {{/let}}
           {{/each}}
         </p>
       </fieldset>

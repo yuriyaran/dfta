@@ -55,6 +55,6 @@ module('Integration | Component | github-form', function (hooks) {
     await click('[data-test-submit-button]');
 
     assert.equal(submittedValue, 'github', 'submitted value is correct');
-    assert.dom('[data-test-submit-button]').hasText('...Loading...');
+    assert.dom('[data-test-submit-button]').hasText('⏳ Loading...');
   });
 });

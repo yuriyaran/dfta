@@ -68,12 +68,13 @@ export default class ReposTable extends Component<ReposTableSignature> {
 
   @action
   toggleBranchesRow(repo: Repository, event: Event): void {
+    if (this.args.branchesLoading) return;
+
     const existingRow = document.querySelector(
       `[data-test-row-branches=${repo.name}]`,
     );
     if (existingRow) {
-      existingRow.className =
-        existingRow.className === 'hidden' ? '' : 'hidden';
+      existingRow.classList.toggle('hidden');
     } else {
       const row = this.createBranchRow(repo.name);
       this.populateRow(row, repo.url);
@@ -82,8 +83,9 @@ export default class ReposTable extends Component<ReposTableSignature> {
 
   createBranchRow = (repoName: string): HTMLTableElement => {
     const branchesRow = document.createElement('tr');
-    branchesRow.innerHTML = `<td colspan="4">...Loading...</td>`;
+    branchesRow.classList.add('branch-row');
     branchesRow.dataset.testRowBranches = repoName;
+    branchesRow.innerHTML = `<td colspan="4">⏳ Loading...</td>`;
     event.target.parentElement.insertAdjacentElement('afterend', branchesRow);
 
     return branchesRow;
@@ -91,7 +93,9 @@ export default class ReposTable extends Component<ReposTableSignature> {
 
   populateRow = async (row, url): void => {
     const branches = await this.args.onRowSelect(url);
-    row.innerHTML = `<td colspan="4">${branches}</td>`;
+    row.innerHTML = branches
+      ? `<td colspan="4"><p class="branch-paragraph"><strong>Branches:</strong> ${branches}</p></td>`
+      : `<td colspan="4"><p class="branch-paragraph">No branches returned 🫗</p></td>`;
   };
 
   resetFilters = (): void => {
@@ -112,12 +116,16 @@ export default class ReposTable extends Component<ReposTableSignature> {
     {{/if}}
 
     {{#if @orgsLoading}}
-      <p data-test-loading="repositories" {{ResetFilters this.resetFilters}}>
-        ...Loading...
+      <p
+        class="list-placeholder"
+        data-test-loading="repositories"
+        {{ResetFilters this.resetFilters}}
+      >
+        ⏳ Loading...
       </p>
     {{else if @org}}
-      <table ...attributes>
-        <caption data-test-caption="org-name">{{@org}}</caption>
+      <h1 class="org-name" data-test-caption="org-name">{{@org}}</h1>
+      <table class="repositories-table" ...attributes>
         <thead>
           <tr>
             <th>Name</th>
@@ -130,6 +138,7 @@ export default class ReposTable extends Component<ReposTableSignature> {
           {{#each this.filteredRepos as |repo|}}
             {{! template-lint-disable no-invalid-interactive }}
             <tr
+              class="repo-row"
               data-test-row-repo={{repo.name}}
               {{on "click" (fn this.toggleBranchesRow repo)}}
             >
@@ -146,8 +155,9 @@ export default class ReposTable extends Component<ReposTableSignature> {
         </tbody>
       </table>
     {{else}}
-      <p data-test-list="empty">
-        Enter a GitHub organization name above to explore its repositories.
+      <p class="list-placeholder" data-test-list="empty">
+        ⬆️ Enter a GitHub organization name above to explore its repositories.
+        ⬆️
       </p>
     {{/if}}
   </template>

@@ -32,27 +32,33 @@ export default class GithubForm extends Component<GithubFormSignature> {
   }
 
   <template>
-    <form {{on "submit" this.handleSubmit}} ...attributes>
-      <label for="access-token">GitHub Personal Access Token (Classic)</label>
-      <input
-        id="access-token"
-        data-test-input="access-token"
-        value={{this.accessToken}}
-        readonly="true"
-      />
-      <label for="gh-org-name">GitHub Organization Name</label>
-      <input
-        id="gh-org-name"
-        data-test-input="gh-org-name"
-        placeholder="Enter your GitHub organization name"
-        pattern="[A-Za-z0-9]+(-[A-Za-z0-9]+)*"
-        required
-        autocomplete="off"
-        {{on "change" this.updateOrgName}}
-      />
-      <button data-test-submit-button type="submit" disabled={{@orgsLoading}}>
-        {{if @orgsLoading "...Loading..." "Get Your Repos"}}
-      </button>
+    <form class="github-form" {{on "submit" this.handleSubmit}} ...attributes>
+      <div class="form-row">
+        <label for="access-token">GitHub Personal Access Token (Classic)</label>
+        <input
+          id="access-token"
+          data-test-input="access-token"
+          value={{this.accessToken}}
+          readonly="true"
+        />
+      </div>
+      <div class="form-row">
+        <label for="gh-org-name">GitHub Organization Name</label>
+        <input
+          id="gh-org-name"
+          data-test-input="gh-org-name"
+          placeholder="Enter your GitHub organization name"
+          pattern="[A-Za-z0-9]+(-[A-Za-z0-9]+)*"
+          required
+          autocomplete="off"
+          {{on "change" this.updateOrgName}}
+        />
+      </div>
+      <div class="form-row">
+        <button data-test-submit-button type="submit" disabled={{@orgsLoading}}>
+          {{if @orgsLoading "⏳ Loading..." "Get Your Repos"}}
+        </button>
+      </div>
     </form>
   </template>
 }
