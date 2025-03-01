@@ -147,8 +147,12 @@ export default class ReposTable extends Component<ReposTableSignature> {
             >
               <td>{{repo.name}}</td>
               <td>
-                <a href={{repo.url}} target="_blank" rel="noopener noreferrer">
-                  {{repo.url}}
+                <a
+                  href={{repo.html_url}}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{repo.html_url}}
                 </a>
               </td>
               <td>{{if repo.language repo.language "null"}}</td>

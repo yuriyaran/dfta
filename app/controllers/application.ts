@@ -8,6 +8,7 @@ import { task } from 'ember-concurrency';
 export type Repository = {
   name: string;
   url: string;
+  html_url: string;
   language: string | null;
   private: boolean;
 };
@@ -38,10 +39,17 @@ export default class ApplicationController extends Controller {
         const repos = await response.json();
         this.repositories = [
           ...repos.map(
-            ({ name, url, language, private: isPrivate }: Repository) => {
+            ({
+              name,
+              url,
+              html_url,
+              language,
+              private: isPrivate,
+            }: Repository) => {
               return {
                 name,
                 url,
+                html_url,
                 language,
                 private: isPrivate,
               };

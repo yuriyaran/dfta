@@ -20,18 +20,21 @@ module('Acceptance | application', function (hooks) {
     {
       name: 'ember',
       url: 'https://api.github.com/repos/emberjs/rfcs',
+      htmlUrl: 'https://github.com/emberjs/rfcs',
       language: null,
       private: false,
     },
     {
       name: 'guides',
       url: 'https://api.github.com/repos/emberjs/guides',
+      htmlUrl: 'https://github.com/emberjs/guides',
       language: 'CSS',
       private: false,
     },
     {
       name: 'ember-mocha',
       url: 'https://api.github.com/repos/emberjs/ember-mocha',
+      htmlUrl: 'https://github.com/emberjs/ember-mocha',
       language: 'JavaScript',
       private: true,
     },
