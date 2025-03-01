@@ -166,8 +166,14 @@ export default class ReposTable extends Component<ReposTableSignature> {
             <tr>
               <td colspan="4">
                 <p class="list-placeholder" data-test-list="filtered-empty">
-                  🧻 Jeez! You took too far with the filters! None of the
-                  repositories matches your criteria. 🧻
+                  {{#if this.showAllRepos}}
+                    0️⃣&nbsp;
+                    {{@org}}
+                    has no repositories. 0️⃣
+                  {{else}}
+                    🧻 Jeez! You took too far with the filters! None of the
+                    repositories matches your criteria. 🧻
+                  {{/if}}
                 </p>
               </td>
             </tr>
