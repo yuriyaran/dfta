@@ -6,6 +6,12 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function (defaults) {
   const app = new EmberApp(defaults, {
     'ember-cli-babel': { enableTypeScriptTransform: true },
+    babel: {
+      plugins: [
+        require.resolve('ember-concurrency/async-arrow-task-transform'),
+        // NOTE: put any code coverage plugins last, after the transform.
+      ],
+    },
     '@embroider/macros': {
       // this is how you configure your own package
       setOwnConfig: {
