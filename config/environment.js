@@ -41,6 +41,8 @@ module.exports = function (environment) {
 
     ENV.APP.rootElement = '#ember-testing';
     ENV.APP.autoboot = false;
+
+    ENV.GITHUB_PAT_CLASSIC = 'GITHUB_PAT_CLASSIC';
   }
 
   if (environment === 'production') {

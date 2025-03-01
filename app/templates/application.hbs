@@ -1,5 +1,20 @@
 {{page-title "Dealfront"}}
 
-<h2 id="title">Welcome to Ember</h2>
+<NotificationContainer @position="top-right" @zindex="9999" />
+
+<GithubForm
+  @orgName={{this.orgName}}
+  @orgsLoading={{this.getOrgRepos.isRunning}}
+  @updateOrgName={{this.updateOrgName}}
+  @onSubmit={{this.getOrgRepos.perform}}
+/>
+
+<Repos
+  @repos={{this.repositories}}
+  @org={{this.orgName}}
+  @orgsLoading={{this.getOrgRepos.isRunning}}
+  @branchesLoading={{this.getRepoBranches.isRunning}}
+  @onRowSelect={{this.getRepoBranches.perform}}
+/>
 
 {{outlet}}
