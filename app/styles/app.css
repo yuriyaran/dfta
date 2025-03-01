@@ -65,6 +65,10 @@ p {
   border-collapse: collapse;
 }
 
+.repositories-table th {
+  background-color: gainsboro;
+}
+
 .repositories-table th,
 .repositories-table td {
   padding: 0.25rem 0.5rem;
