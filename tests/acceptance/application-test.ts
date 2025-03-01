@@ -103,7 +103,7 @@ module('Acceptance | application', function (hooks) {
       assert
         .dom(`[data-test-row-branches="${repositories[0]!.name}"]`)
         .hasText(
-          'Branches: main, dev, feature',
+          '3 Branches: main, dev, feature',
           'branches endpoint successful response',
         );
     });

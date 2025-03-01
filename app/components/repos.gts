@@ -97,7 +97,7 @@ export default class ReposTable extends Component<ReposTableSignature> {
   populateRow = async (row, url): void => {
     const branches = await this.args.onRowSelect(url);
     row.innerHTML = branches
-      ? `<td colspan="4"><p class="branch-paragraph"><strong>Branches:</strong> ${branches}</p></td>`
+      ? `<td colspan="4"><p class="branch-paragraph">${branches}</p></td>`
       : `<td colspan="4"><p class="branch-paragraph">No branches returned 🫗</p></td>`;
   };
 

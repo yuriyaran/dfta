@@ -115,6 +115,7 @@ p {
 
 .repositories-table .branch-row .branch-paragraph {
   max-height: 5rem;
+  overflow: scroll;
   opacity: 1;
 }
 

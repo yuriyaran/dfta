@@ -77,7 +77,8 @@ export default class ApplicationController extends Controller {
 
       if (ok) {
         const branches = await response.json();
-        return branches.map(({ name }: Branch) => name).join(', ');
+        const branchNames = branches.map(({ name }: Branch) => name).join(', ');
+        return `<strong>${branches.length} ${branches.length === 1 ? 'Branch' : 'Branches'}:</strong> ${branchNames}`;
       } else {
         const failedResponse = await response.json();
         this.dfNotifications.notifyError(
