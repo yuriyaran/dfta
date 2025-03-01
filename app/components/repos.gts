@@ -38,7 +38,10 @@ export default class ReposTable extends Component<ReposTableSignature> {
   }
 
   get showFilters(): boolean {
-    return !this.showAllRepos || this.filteredRepos.length;
+    return (
+      (!this.showAllRepos || this.filteredRepos.length) &&
+      !this.args.orgsLoading
+    );
   }
 
   get filteredRepos(): Repository[] {
