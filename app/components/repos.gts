@@ -145,8 +145,8 @@ export default class ReposTable extends Component<ReposTableSignature> {
               data-test-row-repo={{repo.name}}
               {{on "click" (fn this.toggleBranchesRow repo)}}
             >
-              <td>{{repo.name}}</td>
-              <td>
+              <td data-label="Name">{{repo.name}}</td>
+              <td data-label="URL">
                 <a
                   href={{repo.html_url}}
                   target="_blank"
@@ -155,8 +155,10 @@ export default class ReposTable extends Component<ReposTableSignature> {
                   {{repo.html_url}}
                 </a>
               </td>
-              <td>{{if repo.language repo.language "null"}}</td>
-              <td>{{repo.private}}</td>
+              <td data-label="Language">
+                {{if repo.language repo.language "null"}}
+              </td>
+              <td data-label="Private">{{repo.private}}</td>
             </tr>
           {{/each}}
         </tbody>

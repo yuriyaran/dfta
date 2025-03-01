@@ -5,6 +5,7 @@ body {
   font-family: sans-serif;
   padding: 1rem;
 }
+
 p {
   margin: 0;
 }
@@ -157,10 +158,6 @@ p {
 
 /* Mobile support */
 @media (max-width: 767px) {
-  body {
-    margin: 10px;
-  }
-
   .github-form {
     display: grid;
     grid-template-columns: 1fr;
@@ -170,6 +167,33 @@ p {
 
   .github-form .form-row label {
     margin-bottom: 0.5rem;
+  }
+
+  .repositories-table {
+    width: 100%;
+    display: block;
+  }
+
+  .repositories-table thead {
+    display: none;
+  }
+
+  .repositories-table tr {
+    display: block;
+    position: relative;
+  }
+
+  .repositories-table tr.repo-row td {
+    display: block;
+    width: 100%;
+    padding-left: 28%;
+  }
+
+  .repositories-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    font-weight: 600;
   }
 }
 /* end of Mobile support */

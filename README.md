@@ -79,6 +79,7 @@ Based on my experience, investing efforts into learning and implementing the lat
 7. **Styling**
    - I decided to use minimal design, no fancy looks, no external libraries, just plain functionality, and minimum CSS
    - each repository row is clickable and behaves like a drawer for the row below with a branches list (basic animation included)
+   - implemented responsive design: supports desktop and mobile views
 
 8. **App functionality decisions**
    1. No excess, duplicate, or unnecessary API calls:
