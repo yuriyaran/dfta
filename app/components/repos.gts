@@ -129,14 +129,16 @@ export default class ReposTable extends Component<ReposTableSignature> {
     {{else if @org}}
       <h1 class="org-name" data-test-caption="org-name">{{@org}}</h1>
       <table class="repositories-table" ...attributes>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>URL</th>
-            <th>Language</th>
-            <th>Private</th>
-          </tr>
-        </thead>
+        {{#if this.filteredRepos.length}}
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>URL</th>
+              <th>Language</th>
+              <th>Private</th>
+            </tr>
+          </thead>
+        {{/if}}
         <tbody>
           {{#each this.filteredRepos as |repo|}}
             {{! template-lint-disable no-invalid-interactive }}
@@ -159,6 +161,15 @@ export default class ReposTable extends Component<ReposTableSignature> {
                 {{if repo.language repo.language "null"}}
               </td>
               <td data-label="Private">{{repo.private}}</td>
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan="4">
+                <p class="list-placeholder" data-test-list="filtered-empty">
+                  🧻 Jeez! You took too far with the filters! None of the
+                  repositories matches your criteria. 🧻
+                </p>
+              </td>
             </tr>
           {{/each}}
         </tbody>
