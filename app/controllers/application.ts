@@ -27,13 +27,13 @@ export default class ApplicationController extends Controller {
     this.orgName = name;
   };
 
-  getOrgRepos = task(async () => {
+  getOrgRepos = task(async (orgName) => {
     try {
-      const response = await this.github.getOrgRepos(this.orgName);
+      const response = await this.github.getOrgRepos(orgName);
       const { ok, status } = response;
 
       if (ok) {
-        // this.updateOrgName(orgName);
+        this.updateOrgName(orgName);
 
         const repos = await response.json();
         this.repositories = [
@@ -51,12 +51,12 @@ export default class ApplicationController extends Controller {
       } else if (status === 404) {
         const notFoundResponse = await response.json();
         this.dfNotifications.notifyError(
-          `${notFoundResponse.message}: ${this.orgName}`,
+          `${notFoundResponse.message}: ${orgName}`,
         );
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
-        this.dfNotifications.notifyError(`${error.message}: ${this.orgName}`);
+        this.dfNotifications.notifyError(`${error.message}: ${orgName}`);
       }
       console.error(error);
     }

@@ -8,7 +8,6 @@ module('Integration | Component | github-form', function (hooks) {
 
   hooks.beforeEach(async function () {
     this.set('onSubmit', () => {});
-    this.set('updateOrgName', () => {});
     this.set('orgsLoading', false);
     this.set('orgName', '');
 
@@ -16,7 +15,6 @@ module('Integration | Component | github-form', function (hooks) {
       hbs`<GithubForm
         @orgsLoading={{this.orgsLoading}}
         @orgName={{this.orgName}}
-        @updateOrgName={{this.updateOrgName}}
         @onSubmit={{this.onSubmit}}
       />`,
     );
@@ -46,8 +44,8 @@ module('Integration | Component | github-form', function (hooks) {
 
   test('handles submit', async function (assert) {
     let submittedValue: string | undefined;
-    this.set('updateOrgName', (value: string) => (submittedValue = value));
-    this.set('onSubmit', () => {
+    this.set('onSubmit', (value: string) => {
+      submittedValue = value;
       this.set('orgsLoading', true); // simulates loading state
     });
 

@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
 import { action } from '@ember/object';
@@ -9,8 +10,7 @@ export interface GithubFormSignature {
   Args: {
     orgsLoading: boolean;
     orgName: string;
-    updateOrgName: (name: string) => void;
-    onSubmit: () => void;
+    onSubmit: (name: string) => void;
   };
   // The element to which `...attributes` is applied in the component template
   Element: HTMLFormElement;
@@ -19,16 +19,18 @@ export interface GithubFormSignature {
 export default class GithubForm extends Component<GithubFormSignature> {
   accessToken: string = ENV.GITHUB_PAT_CLASSIC;
 
+  @tracked orgName = this.args.orgName || '';
+
   @action
   updateOrgName(event: Event): void {
     const { value } = event.target as HTMLInputElement;
-    if (value) this.args.updateOrgName(value);
+    if (value) this.orgName = value;
   }
 
   @action
   handleSubmit(event: Event): void {
     event.preventDefault();
-    this.args.onSubmit();
+    this.args.onSubmit(this.orgName);
   }
 
   <template>
