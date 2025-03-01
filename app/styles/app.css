@@ -47,6 +47,7 @@ p {
 .github-form .form-row label {
   margin-bottom: 0.25rem;
 }
+
 /* end of `github-form` component */
 
 /* `repos` component */
@@ -109,10 +110,10 @@ p {
 }
 
 .repositories-table .branch-row.hidden td {
-  animation: removePadding 0s 0.4s forwards;
+  animation: remove-padding 0s 0.4s forwards;
 }
 
-@keyframes removePadding {
+@keyframes remove-padding {
   to {
     padding: 0;
   }
@@ -132,6 +133,7 @@ p {
     max-height 0.5s ease-in-out,
     opacity 0.5s ease-in-out;
 }
+
 /* end of `repos` component */
 
 /* `filter` component */
@@ -158,10 +160,11 @@ p {
   background-color: darkcyan;
   color: white;
 }
+
 /* end of `filter` component */
 
 /* Mobile support */
-@media (max-width: 767px) {
+@media (width <= 767px) {
   .github-form {
     display: grid;
     grid-template-columns: 1fr;
@@ -200,4 +203,5 @@ p {
     font-weight: 600;
   }
 }
+
 /* end of Mobile support */

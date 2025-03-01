@@ -3,7 +3,7 @@ import { modifier } from 'ember-modifier';
 interface ResetFiltersSignature {
   Element: HTMLElement;
   Args: {
-    Named: {};
+    Named: object;
     Positional: [() => void];
   };
 }

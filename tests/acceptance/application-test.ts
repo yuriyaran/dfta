@@ -76,11 +76,11 @@ module('Acceptance | application', function (hooks) {
     await visit('/');
   });
 
-  test('visiting /', async function (assert) {
+  test('visiting /', function (assert) {
     assert.strictEqual(currentURL(), '/');
   });
 
-  module('handles API calls', function (hooks) {
+  module('handles API calls', function () {
     test('succcessful response: repositories & branches', async function (assert) {
       const repoName = 'emberjs';
 
@@ -132,7 +132,7 @@ module('Acceptance | application', function (hooks) {
         .hasText('Not Found: failed-one');
     });
 
-    module('it filters repositories', function (hooks) {
+    module('it filters repositories', function () {
       test('filters by language & privacy', async function (assert) {
         await fillIn('[data-test-input="gh-org-name"]', 'org-name');
         await click('[data-test-submit-button]');

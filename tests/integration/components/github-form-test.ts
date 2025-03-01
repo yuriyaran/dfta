@@ -20,7 +20,7 @@ module('Integration | Component | github-form', function (hooks) {
     );
   });
 
-  test('it renders', async function (assert) {
+  test('it renders', function (assert) {
     assert
       .dom('[data-test-input="access-token"]')
       .hasValue()

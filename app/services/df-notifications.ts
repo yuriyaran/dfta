@@ -6,7 +6,7 @@ export default class DFNotificationsService extends Service {
 
   notifyError(msg: string) {
     // NOTE: acceptance test `repositories: failed response` fails with `autoClear=true`
-    this.notifications.error(msg, {
+    this.notifications?.error(msg, {
       // autoClear: true,
       // clearDuration: 2000,
     });
