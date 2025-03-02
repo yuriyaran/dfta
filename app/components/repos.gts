@@ -3,6 +3,7 @@ import { tracked } from 'tracked-built-ins';
 import { action } from '@ember/object';
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
+import { type FilterArgs } from 'dealfront/components/repos/types';
 import { type Repository } from 'dealfront/controllers/application';
 import ReposFilter from './repos/filter';
 import ResetFilters from 'dealfront/modifiers/reset-filters';
