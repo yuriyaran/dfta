@@ -2,11 +2,6 @@ import { on } from '@ember/modifier';
 import { fn, hash } from '@ember/helper';
 import { eq } from 'ember-truth-helpers';
 
-export type FilterArgs = {
-  language?: string;
-  privacy?: string;
-};
-
 <template>
   <form ...attributes>
     <fieldset>

@@ -1,5 +1,5 @@
 import { click, render } from '@ember/test-helpers';
-import { FilterArgs } from 'dealfront/components/repos/filter';
+import { FilterArgs } from 'dealfront/components/repos';
 import { setupRenderingTest } from 'dealfront/tests/helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { module, test } from 'qunit';

@@ -7,7 +7,7 @@ import { type Repository } from 'dealfront/controllers/application';
 import ReposFilter from './repos/filter';
 import ResetFilters from 'dealfront/modifiers/reset-filters';
 
-export interface ReposTableSignature {
+interface ReposTableSignature {
   // The arguments accepted by the component
   Args: {
     repos: Repository[];
@@ -20,6 +20,11 @@ export interface ReposTableSignature {
   Element: HTMLTableElement;
 }
 
+export type FilterArgs = {
+  language?: string;
+  privacy?: string;
+};
+
 export default class ReposTable extends Component<ReposTableSignature> {
   @tracked selectedLanguage = 'All';
   @tracked selectedPrivacy = 'All';
@@ -27,7 +32,9 @@ export default class ReposTable extends Component<ReposTableSignature> {
   reposPrivacy = ['All', 'Private', 'Public'];
   get reposLangs(): string[] {
     const langs = this.args.repos.map(
-      ({ language }: Repository) => language ?? String(language),
+      ({ language }: Repository) =>
+        language ??
+        String(language) /* converts null to a string value 'null' */,
     );
 
     return ['All', ...new Set(langs)];
@@ -64,7 +71,7 @@ export default class ReposTable extends Component<ReposTableSignature> {
   }
 
   @action
-  setFilter({ language, privacy }): void {
+  setFilter({ language, privacy }: FilterArgs): void {
     if (language) this.selectedLanguage = language;
     if (privacy) this.selectedPrivacy = privacy;
   }
@@ -73,28 +80,29 @@ export default class ReposTable extends Component<ReposTableSignature> {
   toggleBranchesRow(repo: Repository, event: Event): void {
     if (this.args.branchesLoading) return;
 
-    const existingRow = document.querySelector(
-      `[data-test-row-branches=${repo.name}]`,
+    const existingRow: HTMLTableElement = document.querySelector(
+      `[data-test-row-branches="${repo.name}"]`,
     );
     if (existingRow) {
       existingRow.classList.toggle('hidden');
     } else {
       const row = this.createBranchRow(repo.name);
+      const target = event.target as HTMLTableElement;
+      target.parentElement.insertAdjacentElement('afterend', row);
       this.populateRow(row, repo.url);
     }
   }
 
   createBranchRow = (repoName: string): HTMLTableElement => {
-    const branchesRow = document.createElement('tr');
+    const branchesRow: HTMLTableElement = document.createElement('tr');
     branchesRow.classList.add('branch-row');
     branchesRow.dataset.testRowBranches = repoName;
     branchesRow.innerHTML = `<td colspan="4">⏳ Loading...</td>`;
-    event.target.parentElement.insertAdjacentElement('afterend', branchesRow);
 
     return branchesRow;
   };
 
-  populateRow = async (row, url): void => {
+  populateRow = async (row: HTMLTableElement, url: string): void => {
     const branches = await this.args.onRowSelect(url);
     row.innerHTML = branches
       ? `<td colspan="4"><p class="branch-paragraph">${branches}</p></td>`

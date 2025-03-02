@@ -17,6 +17,10 @@ type Branch = {
   name: string;
 };
 
+type NotFoundResponse = {
+  message: string;
+};
+
 export default class ApplicationController extends Controller {
   @service declare dfNotifications: DFNotificationsService;
   @service declare github: GithubService;
@@ -28,7 +32,7 @@ export default class ApplicationController extends Controller {
     this.orgName = name;
   };
 
-  getOrgRepos = task(async (orgName) => {
+  getOrgRepos = task(async (orgName: string) => {
     try {
       const response = await this.github.getOrgRepos(orgName);
       const { ok, status } = response;
@@ -36,7 +40,7 @@ export default class ApplicationController extends Controller {
       if (ok) {
         this.updateOrgName(orgName);
 
-        const repos = await response.json();
+        const repos = (await response.json()) as Repository[];
         this.repositories = [
           ...repos.map(
             ({
@@ -57,7 +61,7 @@ export default class ApplicationController extends Controller {
           ),
         ];
       } else if (status === 404) {
-        const notFoundResponse = await response.json();
+        const notFoundResponse = (await response.json()) as NotFoundResponse;
         this.dfNotifications.notifyError(
           `${notFoundResponse.message}: ${orgName}`,
         );
@@ -73,14 +77,13 @@ export default class ApplicationController extends Controller {
   getRepoBranches = task({ drop: true }, async (url: string) => {
     try {
       const response = await this.github.getRepoBranches(url);
-      const { ok, status } = response;
 
-      if (ok) {
-        const branches = await response.json();
+      if (response.ok) {
+        const branches = (await response.json()) as Branch[];
         const branchNames = branches.map(({ name }: Branch) => name).join(', ');
         return `<strong>${branches.length} ${branches.length === 1 ? 'Branch' : 'Branches'}:</strong> ${branchNames}`;
       } else {
-        const failedResponse = await response.json();
+        const failedResponse = (await response.json()) as NotFoundResponse;
         this.dfNotifications.notifyError(
           `${failedResponse.message}: couldn't load branches`,
         );
