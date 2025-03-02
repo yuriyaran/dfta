@@ -20,11 +20,6 @@ interface ReposTableSignature {
   Element: HTMLTableElement;
 }
 
-export type FilterArgs = {
-  language?: string;
-  privacy?: string;
-};
-
 export default class ReposTable extends Component<ReposTableSignature> {
   @tracked selectedLanguage = 'All';
   @tracked selectedPrivacy = 'All';

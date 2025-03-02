@@ -1,5 +1,5 @@
 import { click, render } from '@ember/test-helpers';
-import { FilterArgs } from 'dealfront/components/repos';
+import { type FilterArgs } from 'dealfront/components/repos/types';
 import { setupRenderingTest } from 'dealfront/tests/helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { module, test } from 'qunit';
@@ -11,7 +11,7 @@ module('Integration | Component | repos/filter', function (hooks) {
     this.set('langs', ['JavaScript', 'TypeScript', null]);
     this.set('privacy', ['All', 'Private', 'Public']);
 
-    let selectedFilter: string = 'All';
+    let selectedFilter: string | undefined = 'All';
     this.set('onFilter', ({ language, privacy }: FilterArgs) => {
       selectedFilter = language || privacy;
     });
