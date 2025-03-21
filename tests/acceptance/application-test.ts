@@ -108,28 +108,55 @@ module('Acceptance | application', function (hooks) {
         );
     });
 
-    test('repositories: failed response', async function (assert) {
-      const githubService = this.owner.lookup(
-        'service:github',
-      ) as GithubServiceType;
-      githubService.getOrgRepos = () => {
-        return new Promise((resolve) => {
-          resolve(
-            new Response(JSON.stringify({ message: 'Not Found' }), {
-              status: 404,
-              headers: { 'Content-Type': 'application/json' },
-            }),
-          );
-        });
-      };
+    module('failed response', function () {
+      test('401', async function (assert) {
+        const githubService = this.owner.lookup(
+          'service:github',
+        ) as GithubServiceType;
+        githubService.pat = 'BAD-creds';
+        githubService.getOrgRepos = () => {
+          return new Promise((resolve) => {
+            resolve(
+              new Response(JSON.stringify({ message: 'Bad credentials' }), {
+                status: 401,
+                headers: { 'Content-Type': 'application/json' },
+              }),
+            );
+          });
+        };
 
-      await fillIn('[data-test-input="gh-org-name"]', 'failed-one');
-      await click('[data-test-submit-button]');
+        await fillIn('[data-test-input="gh-org-name"]', 'one');
+        await click('[data-test-submit-button]');
 
-      await waitFor('[data-test-notification-message="error"]');
-      assert
-        .dom('[data-test-notification-message="error"]')
-        .hasText('Not Found: failed-one');
+        await waitFor('[data-test-notification-message="error"]');
+        assert
+          .dom('[data-test-notification-message="error"]')
+          .hasText('Bad credentials: BAD-creds');
+      });
+
+      test('404', async function (assert) {
+        const githubService = this.owner.lookup(
+          'service:github',
+        ) as GithubServiceType;
+        githubService.getOrgRepos = () => {
+          return new Promise((resolve) => {
+            resolve(
+              new Response(JSON.stringify({ message: 'Not Found' }), {
+                status: 404,
+                headers: { 'Content-Type': 'application/json' },
+              }),
+            );
+          });
+        };
+
+        await fillIn('[data-test-input="gh-org-name"]', 'failed-one');
+        await click('[data-test-submit-button]');
+
+        await waitFor('[data-test-notification-message="error"]');
+        assert
+          .dom('[data-test-notification-message="error"]')
+          .hasText('Not Found: failed-one');
+      });
     });
 
     module('it filters repositories', function () {

@@ -2,6 +2,8 @@ import Service from '@ember/service';
 import ENV from 'dealfront/config/environment';
 
 export type GithubServiceType = {
+  pat: string;
+  headers: Record<string, string>;
   getOrgRepos(orgName: string): Promise<Response>;
   getRepoBranches(url: string): Promise<Response>;
 };
