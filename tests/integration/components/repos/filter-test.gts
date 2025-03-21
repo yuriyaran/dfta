@@ -1,26 +1,29 @@
 import { click, render } from '@ember/test-helpers';
 import { type FilterArgs } from 'dealfront/components/repos/types';
 import { setupRenderingTest } from 'dealfront/tests/helpers';
-import { hbs } from 'ember-cli-htmlbars';
 import { module, test } from 'qunit';
+import ReposFilter from 'dealfront/components/repos/filter';
 
 module('Integration | Component | repos/filter', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it filters', async function (assert) {
-    this.set('langs', ['JavaScript', 'TypeScript', null]);
-    this.set('privacy', ['All', 'Private', 'Public']);
-
+    const langs = ['JavaScript', 'TypeScript', null];
+    const privacy = ['All', 'Private', 'Public'];
     let selectedFilter: string | undefined = 'All';
-    this.set('onFilter', ({ language, privacy }: FilterArgs) => {
+    const onFilter = ({ language, privacy }: FilterArgs) => {
       selectedFilter = language || privacy;
-    });
+    };
 
-    await render(hbs`<Repos::Filter
-      @langs={{this.langs}}
-      @privacy={{this.privacy}}
-      @onFilter={{this.onFilter}}
-    />`);
+    await render(
+      <template>
+        <ReposFilter
+          @langs={{langs}}
+          @privacy={{privacy}}
+          @onFilter={{onFilter}}
+        />
+      </template>,
+    );
 
     await click('[data-test-label="radio-lang-JavaScript"]');
     assert.equal(
