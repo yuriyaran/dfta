@@ -93,7 +93,7 @@ export default class ReposTable extends Component<ReposTableSignature> {
     const branchesRow: HTMLTableElement = document.createElement('tr');
     branchesRow.classList.add('branch-row');
     branchesRow.dataset.testRowBranches = repoName;
-    branchesRow.innerHTML = `<td colspan="4">⏳ Loading...</td>`;
+    branchesRow.innerHTML = `<td class="df-cell" colspan="4">⏳ Loading...</td>`;
 
     return branchesRow;
   };
@@ -101,8 +101,8 @@ export default class ReposTable extends Component<ReposTableSignature> {
   populateRow = async (row: HTMLTableElement, url: string): void => {
     const branches = await this.args.onRowSelect(url);
     row.innerHTML = branches
-      ? `<td colspan="4"><p class="branch-paragraph">${branches}</p></td>`
-      : `<td colspan="4"><p class="branch-paragraph">No branches returned 🫗</p></td>`;
+      ? `<td class="df-cell" colspan="4"><p class="branch-paragraph">${branches}</p></td>`
+      : `<td class="df-cell" colspan="4"><p class="branch-paragraph">No branches returned 🫗</p></td>`;
   };
 
   resetFilters = (): void => {
@@ -132,14 +132,14 @@ export default class ReposTable extends Component<ReposTableSignature> {
       </p>
     {{else if @org}}
       <h1 class="org-name" data-test-caption="org-name">{{@org}}</h1>
-      <table class="repositories-table" ...attributes>
+      <table class="df-table repositories-table" ...attributes>
         {{#if this.filteredRepos.length}}
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>URL</th>
-              <th>Language</th>
-              <th>Private</th>
+          <thead class="df-head">
+            <tr class="df-row">
+              <th class="df-cell header">Name</th>
+              <th class="df-cell header">URL</th>
+              <th class="df-cell header">Language</th>
+              <th class="df-cell header">Private</th>
             </tr>
           </thead>
         {{/if}}
@@ -147,12 +147,12 @@ export default class ReposTable extends Component<ReposTableSignature> {
           {{#each this.filteredRepos as |repo|}}
             {{! template-lint-disable no-invalid-interactive }}
             <tr
-              class="repo-row"
+              class="df-row repo-row"
               data-test-row-repo={{repo.name}}
               {{on "click" (fn this.toggleBranchesRow repo)}}
             >
-              <td data-label="Name">{{repo.name}}</td>
-              <td data-label="URL">
+              <td class="df-cell" data-label="Name">{{repo.name}}</td>
+              <td class="df-cell" data-label="URL">
                 <a
                   href={{repo.html_url}}
                   target="_blank"
@@ -161,14 +161,14 @@ export default class ReposTable extends Component<ReposTableSignature> {
                   {{repo.html_url}}
                 </a>
               </td>
-              <td data-label="Language">
+              <td class="df-cell" data-label="Language">
                 {{if repo.language repo.language "null"}}
               </td>
-              <td data-label="Private">{{repo.private}}</td>
+              <td class="df-cell" data-label="Private">{{repo.private}}</td>
             </tr>
           {{else}}
-            <tr>
-              <td colspan="4">
+            <tr class="df-row">
+              <td class="df-cell" colspan="4">
                 <p class="list-placeholder" data-test-list="filtered-empty">
                   {{#if this.showAllRepos}}
                     0️⃣&nbsp;

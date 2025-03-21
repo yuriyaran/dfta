@@ -10,6 +10,32 @@ p {
   margin: 0;
 }
 
+/* Dealfront styles (prefixed `df-`) */
+.df-input,
+.df-button {
+  padding: 0.25rem 0.5rem;
+  box-sizing: border-box;
+}
+
+.df-input:read-only {
+  background-color: lightsteelblue;
+}
+
+.df-table {
+  border-collapse: collapse;
+
+  .df-cell {
+    padding: 0.25rem 0.5rem;
+    text-align: left;
+
+    &.header {
+      background-color: gainsboro;
+    }
+  }
+}
+
+/* end of - Dealfront styles (prefixed `df-`) */
+
 /* `github-form` component */
 .github-form {
   display: grid;
@@ -18,34 +44,25 @@ p {
   width: 80%;
   max-width: 880px;
   margin: 1rem auto 2rem;
-}
 
-.github-form input,
-.github-form button {
-  padding: 0.25rem 0.5rem;
-  box-sizing: border-box;
-}
+  & .form-row {
+    display: flex;
+    flex-direction: column;
 
-.github-form input:read-only {
-  background-color: lightsteelblue;
-}
+    &:nth-child(3) {
+      align-self: end;
+    }
 
-.github-form .form-row {
-  display: flex;
-  flex-direction: column;
-}
+    & .df-label {
+      margin-bottom: 0.25rem;
+    }
 
-.github-form .form-row:nth-child(3) {
-  align-self: end;
-}
-
-.github-form .form-row input,
-.github-form .form-row button {
-  width: 100%;
-}
-
-.github-form .form-row label {
-  margin-bottom: 0.25rem;
+    & .df-input,
+    & .df-button {
+      width: 100%;
+      margin-top: auto;
+    }
+  }
 }
 
 /* end of `github-form` component */
@@ -63,54 +80,58 @@ p {
 .repositories-table {
   width: 100%;
   margin: 0 auto;
-  border-collapse: collapse;
-}
 
-.repositories-table th {
-  background-color: gainsboro;
-}
+  .repo-row {
+    border-top: 1px dotted darkgray;
 
-.repositories-table th,
-.repositories-table td {
-  padding: 0.25rem 0.5rem;
-  text-align: left;
-}
+    &:hover {
+      cursor: pointer;
+      background-color: #e0e0e0;
+    }
 
-.repositories-table th:nth-child(1),
-.repositories-table td:nth-child(1) {
-  width: 20%;
-}
+    .df-cell {
+      &:nth-child(1) {
+        width: 20%;
+      }
 
-.repositories-table th:nth-child(2),
-.repositories-table td:nth-child(2) {
-  width: 50%;
-}
+      &:nth-child(2) {
+        width: 50%;
+      }
 
-.repositories-table th:nth-child(3),
-.repositories-table td:nth-child(3) {
-  width: 15%;
-}
+      &:nth-child(3) {
+        width: 15%;
+      }
 
-.repositories-table th:nth-child(4),
-.repositories-table td:nth-child(4) {
-  width: 15%;
-}
+      &:nth-child(4) {
+        width: 15%;
+      }
+    }
+  }
 
-.repositories-table .repo-row {
-  border-top: 1px dotted darkgray;
-}
+  & .branch-row {
+    background-color: whitesmoke;
 
-.repositories-table .repo-row:hover {
-  cursor: pointer;
-  background-color: #e0e0e0;
-}
+    & .branch-paragraph {
+      max-height: 5rem;
+      overflow: scroll;
+      opacity: 1;
+    }
 
-.repositories-table .branch-row {
-  background-color: whitesmoke;
-}
+    &.hidden {
+      & .df-cell {
+        animation: remove-padding 0s 0.4s forwards;
+      }
 
-.repositories-table .branch-row.hidden td {
-  animation: remove-padding 0s 0.4s forwards;
+      & .branch-paragraph {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.5s ease-in-out,
+          opacity 0.5s ease-in-out;
+      }
+    }
+  }
 }
 
 @keyframes remove-padding {
@@ -119,22 +140,7 @@ p {
   }
 }
 
-.repositories-table .branch-row .branch-paragraph {
-  max-height: 5rem;
-  overflow: scroll;
-  opacity: 1;
-}
-
-.repositories-table .branch-row.hidden .branch-paragraph {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition:
-    max-height 0.5s ease-in-out,
-    opacity 0.5s ease-in-out;
-}
-
-/* end of `repos` component */
+/* end of - `repos` component */
 
 /* `filter` component */
 .filter-row {
@@ -150,18 +156,18 @@ p {
   border-radius: 2rem;
   color: darkslategray;
   font-weight: 600;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.selected {
+    background-color: darkcyan;
+    color: white;
+  }
 }
 
-.filter-pill:hover {
-  cursor: pointer;
-}
-
-.filter-pill.selected {
-  background-color: darkcyan;
-  color: white;
-}
-
-/* end of `filter` component */
+/* end of - `filter` component */
 
 /* Mobile support */
 @media (width <= 767px) {
@@ -172,36 +178,29 @@ p {
     margin-top: 0;
   }
 
-  .github-form .form-row label {
-    margin-bottom: 0.5rem;
-  }
-
   .repositories-table {
-    width: 100%;
-    display: block;
-  }
+    & .df-head {
+      display: none;
+    }
 
-  .repositories-table thead {
-    display: none;
-  }
+    & .df-row {
+      position: relative;
 
-  .repositories-table tr {
-    display: block;
-    position: relative;
-  }
+      & .df-cell:not(.header, [colspan="4"]) {
+        display: block;
+        width: 72%;
+        padding-left: 28%;
+        word-break: break-all;
 
-  .repositories-table tr.repo-row td {
-    display: block;
-    width: 100%;
-    padding-left: 28%;
-  }
-
-  .repositories-table td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 0;
-    font-weight: 600;
+        &::before {
+          content: attr(data-label);
+          position: absolute;
+          left: 0;
+          font-weight: 600;
+        }
+      }
+    }
   }
 }
 
-/* end of Mobile support */
+/* end of - Mobile support */
