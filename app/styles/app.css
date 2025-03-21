@@ -183,14 +183,17 @@ p {
       display: none;
     }
 
-    & .df-row {
+    & .repo-row {
       position: relative;
 
-      & .df-cell:not(.header, [colspan="4"]) {
+      & .df-cell {
         display: block;
-        width: 72%;
         padding-left: 28%;
         word-break: break-all;
+
+        &:nth-child(-n + 4) {
+          width: 72%;
+        }
 
         &::before {
           content: attr(data-label);
