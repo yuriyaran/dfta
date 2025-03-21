@@ -7,9 +7,11 @@ export type GithubServiceType = {
 };
 
 export default class GithubService extends Service {
+  pat = ENV.GITHUB_PAT_CLASSIC;
+
   headers = {
     Accept: 'application/vnd.github+json',
-    Authorization: `Bearer ${ENV.GITHUB_PAT_CLASSIC}`,
+    Authorization: `Bearer ${this.pat}`,
     'X-GitHub-Api-Version': '2022-11-28',
   };
 

@@ -60,6 +60,11 @@ export default class ApplicationController extends Controller {
             },
           ),
         ];
+      } else if (status === 401) {
+        const badCredsResponse = (await response.json()) as NotFoundResponse;
+        this.dfNotifications.notifyError(
+          `${badCredsResponse.message}: ${this.github.pat}`,
+        );
       } else if (status === 404) {
         const notFoundResponse = (await response.json()) as NotFoundResponse;
         this.dfNotifications.notifyError(
