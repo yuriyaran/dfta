@@ -98,7 +98,7 @@ module('Acceptance | application', function (hooks) {
         'All repositories are listed',
       );
 
-      await click('[data-test-row-repo] > td');
+      await click('[data-test-row-repo] > [data-test-cell-name]');
 
       assert
         .dom(`[data-test-row-branches="${repositories[0]!.name}"]`)
@@ -151,7 +151,7 @@ module('Acceptance | application', function (hooks) {
           'should filter repositories by language',
         );
         assert
-          .dom('[data-test-row-repo] > td')
+          .dom('[data-test-row-repo] > [data-test-cell-name]')
           .hasText(repositories.find((r) => r.language === null)!.name);
 
         await click('[data-test-label="radio-lang-All"]');
@@ -163,7 +163,7 @@ module('Acceptance | application', function (hooks) {
           'should filter private repositories',
         );
         assert
-          .dom('[data-test-row-repo] > td')
+          .dom('[data-test-row-repo] > [data-test-cell-name]')
           .hasText(repositories.find((r) => r.private)!.name);
       });
 

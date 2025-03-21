@@ -151,7 +151,11 @@ export default class ReposTable extends Component<ReposTableSignature> {
               data-test-row-repo={{repo.name}}
               {{on "click" (fn this.toggleBranchesRow repo)}}
             >
-              <td class="df-cell" data-label="Name">{{repo.name}}</td>
+              <td
+                class="df-cell"
+                data-test-cell-name={{repo.name}}
+                data-label="Name"
+              >{{repo.name}}</td>
               <td class="df-cell" data-label="URL">
                 <a
                   href={{repo.html_url}}
