@@ -76,15 +76,15 @@ export default class ReposTable extends Component<ReposTableSignature> {
   toggleBranchesRow(repo: Repository, event: Event): void {
     if (this.args.branchesLoading) return;
 
-    const existingRow: HTMLTableElement = document.querySelector(
-      `[data-test-row-branches="${repo.name}"]`,
-    );
-    if (existingRow) {
-      existingRow.classList.toggle('hidden');
+    const tdElement = event.target as HTMLTableElement;
+    const trElement = tdElement.parentElement as HTMLTableElement;
+    const nextRow: HTMLTableElement = trElement.nextElementSibling;
+
+    if (nextRow.classList.contains('branch-row')) {
+      nextRow.classList.toggle('hidden');
     } else {
       const row = this.createBranchRow(repo.name);
-      const target = event.target as HTMLTableElement;
-      target.parentElement.insertAdjacentElement('afterend', row);
+      trElement.insertAdjacentElement('afterend', row);
       this.populateRow(row, repo.url);
     }
   }
