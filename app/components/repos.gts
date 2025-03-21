@@ -155,7 +155,9 @@ export default class ReposTable extends Component<ReposTableSignature> {
                 class="df-cell"
                 data-test-cell-name={{repo.name}}
                 data-label="Name"
-              >{{repo.name}}</td>
+              >
+                {{repo.name}}
+              </td>
               <td class="df-cell" data-label="URL">
                 <a
                   href={{repo.html_url}}
