@@ -13,11 +13,7 @@ export type Repository = {
   private: boolean;
 };
 
-type Branch = {
-  name: string;
-};
-
-type NotFoundResponse = {
+export type NotFoundResponse = {
   message: string;
 };
 
@@ -74,30 +70,6 @@ export default class ApplicationController extends Controller {
     } catch (error: unknown) {
       if (error instanceof Error) {
         this.dfNotifications.notifyError(`${error.message}: ${orgName}`);
-      }
-      console.error(error);
-    }
-  });
-
-  getRepoBranches = task({ drop: true }, async (url: string) => {
-    try {
-      const response = await this.github.getRepoBranches(url);
-
-      if (response.ok) {
-        const branches = (await response.json()) as Branch[];
-        const branchNames = branches.map(({ name }: Branch) => name).join(', ');
-        return `<strong>${branches.length} ${branches.length === 1 ? 'Branch' : 'Branches'}:</strong> ${branchNames}`;
-      } else {
-        const failedResponse = (await response.json()) as NotFoundResponse;
-        this.dfNotifications.notifyError(
-          `${failedResponse.message}: couldn't load branches`,
-        );
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        this.dfNotifications.notifyError(
-          `${error.message}: couldn't load branches`,
-        );
       }
       console.error(error);
     }

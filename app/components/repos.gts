@@ -7,23 +7,23 @@ import { type FilterArgs } from 'dealfront/components/repos/types';
 import { type Repository } from 'dealfront/controllers/application';
 import ReposFilter from './repos/filter';
 import ResetFilters from 'dealfront/modifiers/reset-filters';
+import BranchRow from 'dealfront/components/branch-row';
 
-interface ReposTableSignature {
+interface ReposSignature {
   // The arguments accepted by the component
   Args: {
     repos: Repository[];
     org: string;
     orgsLoading: boolean;
-    branchesLoading: boolean;
-    onRowSelect: (url: string) => Promise<string>;
   };
   // The element to which `...attributes` is applied in the component template
   Element: HTMLTableElement;
 }
 
-export default class ReposTable extends Component<ReposTableSignature> {
+export default class ReposTable extends Component<ReposSignature> {
   @tracked selectedLanguage = 'All';
   @tracked selectedPrivacy = 'All';
+  @tracked selectedRepo = '';
 
   reposPrivacy = ['All', 'Private', 'Public'];
   get reposLangs(): string[] {
@@ -73,37 +73,9 @@ export default class ReposTable extends Component<ReposTableSignature> {
   }
 
   @action
-  toggleBranchesRow(repo: Repository, event: Event): void {
-    if (this.args.branchesLoading) return;
-
-    const tdElement = event.target as HTMLTableElement;
-    const trElement = tdElement.parentElement as HTMLTableElement;
-    const nextRow: HTMLTableElement = trElement.nextElementSibling;
-
-    if (nextRow.classList.contains('branch-row')) {
-      nextRow.classList.toggle('hidden');
-    } else {
-      const row = this.createBranchRow(repo.name);
-      trElement.insertAdjacentElement('afterend', row);
-      this.populateRow(row, repo.url);
-    }
+  toggleBranchRow(repoName: string): void {
+    this.selectedRepo = repoName === this.selectedRepo ? '' : repoName;
   }
-
-  createBranchRow = (repoName: string): HTMLTableElement => {
-    const branchesRow: HTMLTableElement = document.createElement('tr');
-    branchesRow.classList.add('branch-row');
-    branchesRow.dataset.testRowBranches = repoName;
-    branchesRow.innerHTML = `<td class="df-cell" colspan="4">⏳ Loading...</td>`;
-
-    return branchesRow;
-  };
-
-  populateRow = async (row: HTMLTableElement, url: string): void => {
-    const branches = await this.args.onRowSelect(url);
-    row.innerHTML = branches
-      ? `<td class="df-cell" colspan="4"><p class="branch-paragraph">${branches}</p></td>`
-      : `<td class="df-cell" colspan="4"><p class="branch-paragraph">No branches returned 🫗</p></td>`;
-  };
 
   resetFilters = (): void => {
     this.selectedLanguage = 'All';
@@ -149,7 +121,7 @@ export default class ReposTable extends Component<ReposTableSignature> {
             <tr
               class="df-row repo-row"
               data-test-row-repo={{repo.name}}
-              {{on "click" (fn this.toggleBranchesRow repo)}}
+              {{on "click" (fn this.toggleBranchRow repo.name)}}
             >
               <td
                 class="df-cell"
@@ -172,6 +144,7 @@ export default class ReposTable extends Component<ReposTableSignature> {
               </td>
               <td class="df-cell" data-label="Private">{{repo.private}}</td>
             </tr>
+            <BranchRow @selectedRepo={{this.selectedRepo}} @repo={{repo}} />
           {{else}}
             <tr class="df-row">
               <td class="df-cell" colspan="4">

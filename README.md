@@ -1,5 +1,38 @@
 # Dealfront Test Assignment
 
+## Updates after Dealfront review
+
+### What we liked
+
+- Very good README included
+- Meets the functional requirements from the specification
+- Good test coverage, acceptance and integration
+- Nice to see TypeScript used
+- Responsive design implemented
+- Access token entered via .env file, and .env.example file provided
+
+### What we'd like to see improved
+
+- > Styling some elements by HTML tag name rather than classes
+
+    **[+]** only global reset styles are applied to elements, all others apply to class names
+
+- > Performing some testing assertions using HTML tag names rather than always sticking with ember-test-selectors
+
+    **[+]** all queries done with `data-test-*` selectors
+
+- > Setting `innerHTML` on parts of the template from the component and using methods like `classList.toggle`, rather than relying on tracked properties to control different template states
+
+    **[+]** reworked approach with `BranchesRow` component and custom modifier triggering branches API call on a first render. As a sideeffect: only single row of branches at a time can be visible, if user clicks on another repository row, the row with branches for a previous one collapses
+
+- > Using `data-test-*` selector for selecting elements in the component, rather than only using those selectors for test environments (`data-test-*` selectors are removed from production builds by default which can potentially cause issues)
+
+    **[+]** my bad: reworked solution with Ember approach by introducing `BranchesRow` component
+
+- > If an invalid access token is used and the app fails to load any repos, it does not seem to communicate the problem to the user (saw that ember-cli-notifications was installed, but it doesn't seem to show that error for us)
+
+    **[+]** added 401 error check
+
 ## Decisions Explained
 
 ### Intro
@@ -78,14 +111,14 @@ Based on my experience, investing efforts into learning and implementing the lat
 
 7. **Styling**
    - I decided to use minimal design, no fancy looks, no external libraries, just plain functionality, and minimum CSS
-   - each repository row is clickable and behaves like a drawer for the row below with a branches list (basic animation included)
+   - each repository row is clickable and behaves like a drawer for the row below with a branches list
    - implemented responsive design: supports desktop and mobile views
    - icons are taken from [AmpWhat](https://www.amp-what.com/)
 
 8. **App functionality decisions**
    1. No excess, duplicate, or unnecessary API calls:
       - disabling `find org repos` button while API call in-flight
-      - checking in `toggleBranchesRow` if branches were already retrieved from API call
+      - checking in `toggleBranchRow` if branches were already retrieved from API call
       - setting `getRepoBranches` task droppable
   
    2. Reset logic:
