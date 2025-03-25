@@ -9,6 +9,7 @@ import {
   type Repository,
   type NotFoundResponse,
 } from 'dealfront/controllers/application';
+import pluralize from 'dealfront/helpers/pluralize';
 
 interface BranchRowSignature {
   // The arguments accepted by the component
@@ -73,7 +74,10 @@ export default class BranchRow extends Component<BranchRowSignature> {
       >
         <td class="df-cell" colspan="4">
           {{#if this.branches.length}}
-            <h4 class="branches-heading">{{this.branches.length}} Branches</h4>
+            <h4 class="branches-heading">
+              {{this.branches.length}}
+              {{pluralize this.branches.length "branch"}}
+            </h4>
           {{/if}}
           <p class="branches-paragraph">
             {{#if this.getRepoBranches.isRunning}}
