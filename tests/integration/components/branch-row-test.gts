@@ -1,12 +1,10 @@
 import { module, test } from 'qunit';
-import { tracked } from '@glimmer/tracking';
 import { setupRenderingTest } from 'dealfront/tests/helpers';
-import { find, render, settled, waitFor, waitUntil } from '@ember/test-helpers';
+import { render, settled } from '@ember/test-helpers';
 import { renderSettled } from '@ember/renderer';
 import Service from '@ember/service';
 import BranchRow from 'dealfront/components/branches-row';
 import { type Repository } from 'dealfront/controllers/application';
-import { later } from '@ember/runloop';
 
 module('Integration | Component | branches-row', function (hooks) {
   setupRenderingTest(hooks);
