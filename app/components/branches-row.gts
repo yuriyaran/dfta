@@ -13,7 +13,7 @@ import {
 interface BranchRowSignature {
   // The arguments accepted by the component
   Args: {
-    repo: Repository;
+    repo: Repository | undefined;
     selectedRepo: string;
   };
   // The element to which `...attributes` is applied in the component template
@@ -31,12 +31,15 @@ export default class BranchRow extends Component<BranchRowSignature> {
   @tracked branches: Branch[] = [];
 
   get show(): boolean {
-    return this.args.selectedRepo === this.args.repo.name;
+    return (
+      this.args.selectedRepo === this.args.repo?.name ||
+      this.getRepoBranches.isRunning
+    );
   }
 
   loadBranches = modifier(async () => {
     if (!this.branches.length)
-      await this.getRepoBranches.perform(this.args.repo.url);
+      await this.getRepoBranches.perform(this.args.repo?.url);
   });
 
   getRepoBranches = task({ drop: true }, async (url: string) => {
@@ -64,12 +67,15 @@ export default class BranchRow extends Component<BranchRowSignature> {
   <template>
     {{#if this.show}}
       <tr
-        class="branch-row"
-        data-test-row-branches={{@repo.name}}
+        class="branches-row"
+        data-test-branches-row={{@repo.name}}
         {{this.loadBranches}}
       >
         <td class="df-cell" colspan="4">
-          <p class="branch-paragraph">
+          {{#if this.branches.length}}
+            <h4 class="branches-heading">{{this.branches.length}} Branches</h4>
+          {{/if}}
+          <p class="branches-paragraph">
             {{#if this.getRepoBranches.isRunning}}
               ⏳ Loading...
             {{else}}

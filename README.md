@@ -118,7 +118,7 @@ Based on my experience, investing efforts into learning and implementing the lat
 8. **App functionality decisions**
    1. No excess, duplicate, or unnecessary API calls:
       - disabling `find org repos` button while API call in-flight
-      - checking in `toggleBranchRow` if branches were already retrieved from API call
+      - in `BranchesRow` component branches API call is called once on initial render
       - setting `getRepoBranches` task droppable
   
    2. Reset logic:

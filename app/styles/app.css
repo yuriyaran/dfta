@@ -108,10 +108,15 @@ p {
     }
   }
 
-  & .branch-row {
+  & .branches-row {
     background-color: whitesmoke;
 
-    & .branch-paragraph {
+    & .branches-heading {
+      margin: 0;
+      text-align: center;
+    }
+
+    & .branches-paragraph {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
       gap: 0.25rem 0.5rem;
@@ -192,7 +197,7 @@ p {
       }
     }
 
-    & .branch-row .branch-paragraph {
+    & .branches-row .branches-paragraph {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       column-gap: 0.25rem;

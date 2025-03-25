@@ -101,8 +101,11 @@ module('Acceptance | application', function (hooks) {
       await click('[data-test-row-repo] > [data-test-cell-name]');
 
       assert
-        .dom(`[data-test-row-branches="${repositories[0]!.name}"]`)
-        .hasText('main dev feature', 'branches endpoint successful response');
+        .dom(`[data-test-branches-row="${repositories[0]!.name}"]`)
+        .hasText(
+          '3 Branches main dev feature',
+          'branches endpoint successful response',
+        );
     });
 
     module('failed response', function () {

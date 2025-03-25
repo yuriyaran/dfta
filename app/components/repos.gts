@@ -7,7 +7,7 @@ import { type FilterArgs } from 'dealfront/components/repos/types';
 import { type Repository } from 'dealfront/controllers/application';
 import ReposFilter from './repos/filter';
 import ResetFilters from 'dealfront/modifiers/reset-filters';
-import BranchRow from 'dealfront/components/branch-row';
+import BranchRow from 'dealfront/components/branches-row';
 
 interface ReposSignature {
   // The arguments accepted by the component
@@ -73,7 +73,7 @@ export default class ReposTable extends Component<ReposSignature> {
   }
 
   @action
-  toggleBranchRow(repoName: string): void {
+  toggleBranchesRow(repoName: string): void {
     this.selectedRepo = repoName === this.selectedRepo ? '' : repoName;
   }
 
@@ -121,7 +121,7 @@ export default class ReposTable extends Component<ReposSignature> {
             <tr
               class="df-row repo-row"
               data-test-row-repo={{repo.name}}
-              {{on "click" (fn this.toggleBranchRow repo.name)}}
+              {{on "click" (fn this.toggleBranchesRow repo.name)}}
             >
               <td
                 class="df-cell"
